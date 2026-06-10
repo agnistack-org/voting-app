@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quick Vote</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Quick Vote</h1>
+    <p class="subtitle">Create a poll and vote instantly</p>
+
+    <div id="poll-creator">
+      <input type="text" id="question-input" placeholder="What's your question?" maxlength="120">
+      <div id="options-list">
+        <input type="text" class="option-input" placeholder="Option 1" maxlength="60">
+        <input type="text" class="option-input" placeholder="Option 2" maxlength="60">
+      </div>
+      <div class="actions">
+        <button id="add-option-btn" type="button">+ Add Option</button>
+        <button id="create-poll-btn" type="button">Create Poll</button>
+      </div>
+    </div>
+
+    <div id="poll-view" class="hidden">
+      <h2 id="poll-question"></h2>
+      <div id="poll-options"></div>
+      <p id="total-votes">0 votes</p>
+      <button id="reset-btn" type="button">New Poll</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
