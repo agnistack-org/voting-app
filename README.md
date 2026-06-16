@@ -8,6 +8,7 @@ A simple, lightweight voting app built with plain HTML, CSS, and JavaScript. No 
 - Vote with a single click
 - Animated percentage bars show results instantly
 - Reset and create new polls anytime
+- Dark/light mode toggle with system preference detection
 
 ## Getting Started
 
