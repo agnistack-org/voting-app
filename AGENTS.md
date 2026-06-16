@@ -7,10 +7,10 @@ Quick Vote is a client-side voting app built with vanilla HTML, CSS, and JavaScr
 ## Architecture
 
 - **index.html** — Page structure and DOM elements
-- **style.css** — All styling (dark theme, animations, responsive layout)
+- **style.css** — All styling (dark/light themes via CSS custom properties, animations, responsive layout)
 - **app.js** — Poll creation, voting logic, and DOM manipulation
 
-All state is held in memory (`votes` array, `hasVoted` flag). There is no backend or persistence.
+Poll state is held in memory (`votes` array, `hasVoted` flag). Theme preference is persisted in localStorage (key: `"theme"`, values: `"dark"` or `"light"`; absent means follow system preference).
 
 ## Conventions
 
@@ -46,7 +46,8 @@ No test framework is set up. To verify manually:
 - Sanitize any user-provided text with `escapeHtml` before DOM insertion
 
 ### Changing the color scheme
-- Colors are defined directly in `style.css` using hex values
-- Primary accent: `#6366f1` (indigo-500)
-- Background: `#0f172a` (slate-900)
-- Surface: `#1e293b` (slate-800)
+- Colors are defined as CSS custom properties in `style.css` under `:root` (dark defaults) and `[data-theme="light"]`
+- To change a color, update the corresponding variable in both theme blocks (e.g., `--accent`, `--bg`, `--surface`)
+- Primary accent: `--accent` (indigo-500, `#6366f1`)
+- Background: `--bg` (dark: `#0f172a`, light: `#f8fafc`)
+- Surface: `--surface` (dark: `#1e293b`, light: `#ffffff`)

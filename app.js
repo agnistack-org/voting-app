@@ -1,3 +1,4 @@
+const themeToggle = document.getElementById("theme-toggle");
 const questionInput = document.getElementById("question-input");
 const optionsList = document.getElementById("options-list");
 const addOptionBtn = document.getElementById("add-option-btn");
@@ -95,3 +96,61 @@ function escapeHtml(str) {
   div.textContent = str;
   return div.innerHTML;
 }
+
+/* Theme toggle: cycles dark → light → system */
+
+function getSystemTheme() {
+  return window.matchMedia("(prefers-color-scheme: light)").matches
+    ? "light"
+    : "dark";
+}
+
+function getPreferredTheme() {
+  const stored = localStorage.getItem("theme");
+  if (stored === "light" || stored === "dark") return stored;
+  return getSystemTheme();
+}
+
+function isSystemMode() {
+  const stored = localStorage.getItem("theme");
+  return stored !== "light" && stored !== "dark";
+}
+
+function applyTheme(theme) {
+  if (!themeToggle) return;
+  if (theme === "light") {
+    document.documentElement.setAttribute("data-theme", "light");
+    themeToggle.textContent = "☀️";
+    themeToggle.setAttribute("aria-label", "Switch to system theme");
+  } else {
+    document.documentElement.removeAttribute("data-theme");
+    themeToggle.textContent = "🌙";
+    themeToggle.setAttribute("aria-label", "Switch to light theme");
+  }
+}
+
+applyTheme(getPreferredTheme());
+
+if (themeToggle) {
+  themeToggle.addEventListener("click", () => {
+    const stored = localStorage.getItem("theme");
+    if (stored === "dark") {
+      localStorage.setItem("theme", "light");
+      applyTheme("light");
+    } else if (stored === "light") {
+      localStorage.removeItem("theme");
+      applyTheme(getSystemTheme());
+    } else {
+      localStorage.setItem("theme", "dark");
+      applyTheme("dark");
+    }
+  });
+}
+
+window
+  .matchMedia("(prefers-color-scheme: light)")
+  .addEventListener("change", (e) => {
+    if (isSystemMode()) {
+      applyTheme(e.matches ? "light" : "dark");
+    }
+  });
